@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+    <formset>
+        <form name="employee">
+            <field property="password">
+                <arg0 key="employee.password"/>
+            </field>
+        </form>
+        <form name="building">
+            <field property="name">
+                <arg0 key="building.name"/>
+            </field>
+        </form>
+    </formset>
+</form-validation>

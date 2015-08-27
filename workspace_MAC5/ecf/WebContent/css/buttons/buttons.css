@@ -1,0 +1,62 @@
+button.custom {
+	overflow: visible;
+	width: auto;
+	border: 1px solid #b4c8d6;
+	border-right-color: #6b95a9;
+	border-bottom-color: #6b95a9;
+	padding: 2px 5px;
+	background: white url(images/input_background.gif) repeat-x;
+	font-size: 12px;
+	text-transform: none;
+	cursor: pointer;
+}
+
+button.custom:focus ::-moz-focus-inner {
+	border-color: transparent;
+}
+
+button.custom:focus,button.custom:hover {
+	background-image: url(images/input_background_dark.gif);
+}
+
+button.custom:active {
+	border: 1px solid #6b95a9;
+	border-right-color: #b4c8d6;
+	border-bottom-color: #b4c8d6;
+	padding: 3px 4px 1px 6px;
+}
+
+button.custom span {
+	background-repeat: no-repeat;
+	padding: 1px 0px 1px 20px;
+	font-family: Arial;
+	font-size: 12px;
+}
+
+button.custom .register {
+	background-image: url(images/user_add.gif);
+}
+
+button.custom .submit {
+	background-image: url(images/accept.png);
+}
+
+button.custom .cancel {
+	background-image: url(images/delete.gif);
+}
+
+button.custom .login {
+	background-image: url(images/user_go.png);
+}
+
+button.custom .edit {
+	background-image: url(images/user_edit.gif);
+}
+
+button.custom .delete {
+	background-image: url(images/user_delete.gif);
+}
+
+button.custom .search {
+	background-image: url(images/magnifier.gif);
+}

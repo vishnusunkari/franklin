@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="edu.franklin.eac.model.pmp.Position" table="Position" lazy="false">
+        <id name="positionId" type="integer">
+            <column name="position_id" />
+            <generator class="native" />
+        </id>
+        <timestamp name="auditStamp" column="audit_stamp"/>
+        <property name="title" type="string" length="100" not-null="true"/>
+
+        <set name="employees" cascade="none" table="OrgChart">
+             <key column="position_id"/>
+             <many-to-many class="edu.franklin.eac.model.pmp.Employee" column="employee_id"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,118 @@
+body {
+	text-align: center;
+	font-family: Arial;
+	margin: 20px;
+	padding: 0;
+	background: #e2e2e2;
+	font-size: .8em;
+}
+
+form {
+	margin: 20px;
+}
+
+fieldset {
+	padding: 10px;
+	border: 1px solid black;
+	margin: 0;
+	margin-bottom: 20px;
+	background-color: #f3f6f9;
+}
+
+fieldset h2 {
+	font-size: 1.1em;
+	color: white;
+	background-image: url(../images/header_bg.gif);
+	padding: 2px 5px;
+	border-bottom: 1px solid black;
+	margin: -10px -10px 10px -10px;
+}
+
+label {
+	font-weight: bold;
+	margin-right: 5px;
+	cursor: pointer;
+	font-size: 13px;
+}
+
+select, textarea, input[type='text'] {
+	border: 1px solid #aaa;
+	border-top-color: #777;
+	border-left-color: #777;
+	border-right-color: #999;
+}
+
+input[type='text'] {
+	width: 180px;
+}
+
+textarea {
+	margin: 3px 0 0 0;
+	width: 95%;
+	height: 50px;
+}
+
+table {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	vertical-align: text-bottom;
+}
+
+#container {
+	width: 800px;
+	margin: 0 auto;
+	text-align: left;
+	background: white;
+	border: 1px solid black;
+}
+
+#header {
+	height: 122px;
+	background: #1c3647 url(../images/banner.gif) no-repeat;
+	border-bottom: 1px solid black;
+}
+
+button.custom {
+	display: block;
+	margin: 0 auto;	
+}
+
+#header h1 {
+	margin: 0;
+	margin-left: 20px;
+	padding-top: 35px;
+	font-size: 2.2em;
+	color: white;
+	width:390px;
+	text-align: center;
+}
+
+#termination table {
+	width: 100%;
+}
+
+#hardwareDiv table {
+	margin-bottom: 15px;
+}
+
+.subMenu {
+	margin: 15px 15px 15px 25px;
+	padding: 10px;
+	background: #fafafa;
+	border: 1px solid #cacaca;
+}
+
+#facilities input[type='text'], #accessSubMenu input[type='text'] {
+	width: 300px;
+}
+
+#accessSubMenu div div {
+	margin: 7px 0 7px 35px;
+}
+
+img.ui-datepicker-trigger {
+	cursor: pointer;
+}

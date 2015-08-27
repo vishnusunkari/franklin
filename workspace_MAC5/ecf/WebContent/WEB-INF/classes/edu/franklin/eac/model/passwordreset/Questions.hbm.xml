@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+   <class name="edu.franklin.eac.model.passwordreset.Questions" table="question_list" lazy="true">
+        <id name="qid" type="integer">
+            <column name="qid" />
+            <generator class="native" />
+        </id>
+        <property name="question" type="string" length="100" not-null="true"/>        
+    </class>
+    
+    <class name="edu.franklin.eac.model.passwordreset.ResetQuestions" table="reset_questions" lazy="true">
+        <id name="userid" type="integer">
+            <column name="user_id" />
+            <generator class="native" />
+        </id>
+        <property name="username" type="string" length="9"/>
+		<many-to-one name="question1" class="edu.franklin.eac.model.passwordreset.Questions" 
+					cascade="none" lazy="false" update="false" column="question_1"/>
+        <property name="answer_1" type="string" length="45"/>
+		<many-to-one name="question2" class="edu.franklin.eac.model.passwordreset.Questions" 
+					cascade="none" lazy="false" update="false" column="question_2"/>
+        <property name="answer_2" type="string" length="45"/>
+		<many-to-one name="question3" class="edu.franklin.eac.model.passwordreset.Questions" 
+					cascade="none" lazy="false" update="false" column="question_3"/>
+        <property name="answer_3" type="string" length="45"/>
+		<many-to-one name="question4" class="edu.franklin.eac.model.passwordreset.Questions" 
+					cascade="none" lazy="false" update="false" column="question_4"/>
+        <property name="answer_4" type="string" length="45"/>
+		<many-to-one name="question5" class="edu.franklin.eac.model.passwordreset.Questions" 
+					cascade="none" lazy="false" update="false" column="question_5"/>
+        <property name="answer_5" type="string" length="45"/>
+    </class>
+</hibernate-mapping>

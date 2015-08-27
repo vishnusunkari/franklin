@@ -1,0 +1,9 @@
+Congratulations on the addition of Test Other, to your department.
+
+To ensure that all necessary resources are provided, please complete the Employee Move/Add/Change Request Form within the next 24 hours. This form provides information to the responsible departments so that Test will have a successful transition.
+
+Please access the form with the following link (login required):
+http://localhost:8080/ecf/mac/updateEmployee.html?requestType=2&employeeID=othert&employeeName=Test%20Other&employeeType=student&employeeTitle=Web%20Designer&employeeDepartment=Application%20%26%20Web%20Development&supervisorID=sunkariv&supervisorName=Vishnu%20Sunkari&supervisorDepartment=Application%20%26%20Web%20Development&effectiveDate=Thursday,%209/23/2010
+
+Thank you,
+Franklin University Department of Human Resources

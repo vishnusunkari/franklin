@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="edu.franklin.eac.model.pmp.OrgChartTemp" table="OrgChartTemp" lazy="false">
+        <id name="orgChartTempId" type="integer">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <timestamp name="auditStamp" column="audit_stamp"/>
+
+		<property name="supervisorId" column="supervisor_id" update="false" insert="false"/>
+		<property name="employeeId" column="employee_id" update="false" insert="false"/>
+		<property name="effectiveDate" type="date" column="effective_date" length="10"/>
+		<property name="transferOrTerminate" type="short" column="transfer_or_terminate" length="1"/>
+        <property name="infoUpdated" type="short" column="info_updated" length="1"/>
+        		
+		<many-to-one name="department" class="edu.franklin.eac.model.pmp.Department" cascade="none" lazy="false">
+           <column name="department_id"/>
+        </many-to-one>
+		
+        <many-to-one name="position" class="edu.franklin.eac.model.pmp.Position" cascade="none" lazy="false">
+           <column name="position_id"/>
+        </many-to-one>
+        
+        <many-to-one name="supervisor" class="edu.franklin.eac.model.pmp.Employee" cascade="none" lazy="false">
+           <column name="supervisor_id"/>
+        </many-to-one>        
+
+        <many-to-one name="employee" class="edu.franklin.eac.model.pmp.Employee" cascade="none" lazy="false">
+           <column name="employee_id"/>
+        </many-to-one>
+        
+        <many-to-one name="location" class="edu.franklin.eac.model.pmp.Location" 
+        	cascade="none" not-found="ignore" column="location_id"/>  
+        	        
+    </class>
+</hibernate-mapping>
+

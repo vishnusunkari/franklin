@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+							http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<bean id="employeeController" class="edu.franklin.eac.web.EmployeeController">
+        <property name="employeeManager" ref="employeeManager"/>
+	</bean>
+	<bean id="employeeFormController" class="edu.franklin.eac.web.EmployeeFormController" scope="prototype">
+		<property name="commandName" value="employee" />
+		<property name="validator" ref="beanValidator" />
+		<property name="formView" value="/ecf/empChangeForm" />
+		<!-- property name="successView" value="redirect:/mac/index.htm"/ -->
+		<property name="successView" value="redirect:/ecf/ecfConfirmation.jsp"/>
+		<property name="employeeManager" ref="employeeManager" />
+		<property name="passwordResetManager" ref="passwordResetManager" />
+	</bean>
+
+	<bean id="delayedLDAPFormController" class="edu.franklin.eac.web.EmployeeFormController" scope="prototype">
+        <property name="commandName" value="employee"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="/delayedldap/delayedLDAPForm"/>
+        <!-- property name="successView" value="redirect:/mac/index.htm"/ -->
+        <property name="successView" value="redirect:/delayedldap/ldapConfirmation.jsp"/>               
+        <property name="employeeManager" ref="employeeManager"/>        
+    </bean>
+    
+    <bean id="employeeUpdateFormController" class="edu.franklin.eac.web.EmployeeUpdateFormController" scope="prototype">
+        <property name="commandName" value="building"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="/mac/macForm"/>
+        <!-- property name="successView" value="redirect:/mac/index.htm"/ -->
+        <property name="successView" value="redirect:/mac/macConfirmation.jsp"/>               
+        <property name="employeeManager" ref="employeeManager"/>       
+    </bean>
+        
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+		
+	<bean id="urlMapping" 
+		  class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" scope="prototype">
+		<property name="mappings">
+			<props>
+				<prop key="/ecf/employees.html">employeeController</prop>
+				<prop key="/ecf/addEmployee.html">employeeFormController</prop>
+				<prop key="/delayedldap/delayedLDAP.html">delayedLDAPFormController</prop>
+				<prop key="/mac/updateEmployee.html">employeeUpdateFormController</prop>				
+			</props>
+		</property>
+	</bean>
+
+	<bean id ="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages</value>
+				<value>errors</value>
+			</list>
+		</property>
+	</bean>
+	
+    <bean id="validatorFactory" class="org.springmodules.commons.validator.DefaultValidatorFactory">
+        <property name="validationConfigLocations">
+            <list>
+                <value>/WEB-INF/validator-rules.xml</value>
+                <value>/WEB-INF/validation.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="beanValidator" class="org.springmodules.commons.validator.DefaultBeanValidator">
+        <property name="validatorFactory" ref="validatorFactory"/>
+    </bean>	
+</beans>

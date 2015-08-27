@@ -1,0 +1,59 @@
+<project name="ecf" default="dist" basedir=".">
+    <description>PhoneRosterApp Build file</description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="WebContent/WEB-INF/classes"/>
+  <property name="dist"  location="dist"/>
+  <property name="webapplib"  location="WebContent/WEB-INF/lib"/>
+  <property name="lib"  location="../lib"/> 
+  <property name="web" value="WebContent"/>
+  
+  <path id="classpath">
+  	<fileset dir="${lib}">
+		<include name="*.jar"/>
+	</fileset>
+  </path>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>  	
+    <!-- Create the build directory structure used by compile -->
+  </target>
+
+  <target name="compile" depends="init" description="compile the source " >
+    <mkdir dir="${build}"/>
+    <!-- Compile the java code from ${src} into ${build} -->  	
+    <javac srcdir="${src}" destdir="${build}">
+    	<classpath refid="classpath"/>	
+    </javac>
+  	
+    <!-- Copy associated resource files -->
+    <copy todir="${build}">
+      <fileset dir="${src}" excludes="**/*.java"/>
+    </copy>
+  	
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}"/>
+
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <war destfile="${dist}/ecf.war" webxml="WebContent/WEB-INF/web.xml">
+        <fileset dir="${web}">
+        	<exclude name="WebContent/WEB-INF/web.xml"/>
+        </fileset>
+    </war>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+
+</project>

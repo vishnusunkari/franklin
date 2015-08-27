@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="edu.franklin.eac.model.pmp.Location" table="Location" lazy="true">
+        <id name="locationId" type="integer">
+            <column name="location_id" />
+            <generator class="native" />
+        </id>
+
+		<many-to-one name="building" class="edu.franklin.eac.model.pmp.Building" 
+					cascade="none" lazy="false" column="building_id"/>
+
+		<many-to-one name="room" class="edu.franklin.eac.model.pmp.Room" 
+					cascade="none" lazy="false" column="room_id"/>
+    </class>
+</hibernate-mapping>

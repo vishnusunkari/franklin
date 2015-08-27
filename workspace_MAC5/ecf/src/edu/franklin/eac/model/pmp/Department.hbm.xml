@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="edu.franklin.eac.model.pmp.Department" table="Department" lazy="false">
+        <id name="departmentId" type="integer">
+            <column name="department_id" />
+            <generator class="native" />
+        </id>
+
+        <timestamp column="audit_stamp" name="auditStamp"/>
+        <property name="name" type="string" length="100" not-null="true"/>
+        <property name="email" type="string" length="150"/>
+        
+        <many-to-one name="supervisor" class="edu.franklin.eac.model.pmp.Employee" cascade="none" column="supervisor_id"/>
+		
+		<many-to-one name="building" class="edu.franklin.eac.model.pmp.Building" cascade="none" column="building_id"/>
+		
+        <set name="employees" cascade="none" table="OrgChart">
+             <key column="department_id"/>
+             <many-to-many class="edu.franklin.eac.model.pmp.Employee" column="employee_id"/>
+        </set>
+        
+    </class>
+</hibernate-mapping>

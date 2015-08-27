@@ -1,0 +1,48 @@
+body {
+	text-align: center;
+	font-family: Arial;
+	margin: 0;
+	padding: 0;
+	background: #e2e2e2;
+}
+
+#container {
+	width: 800px;
+	margin: 0 auto;
+	text-align: left;
+	background: white;
+	border: 1px solid black;
+	font-size: 0.8em;
+}
+
+#header {
+	height: 122px;
+	background: #1c3647 url(../images/banner.gif) no-repeat;
+	border-bottom: 1px solid black;
+}
+
+#header h1 {
+	margin: 0;
+	margin-left: 20px;
+	padding-top: 45px;
+	font-size: 2.2em;
+	color: white;
+	width:390px;
+	text-align: center;
+}
+
+#confirm {
+	padding: 10px 10px;
+	border: 1px solid black;
+	margin: 20px;
+	background-color: #f3f6f9;
+}
+
+#confirm h2 {
+	font-size: 1.1em;
+	color: white;
+	background-image: url(../images/header_bg.gif);
+	padding: 2px 5px;
+	border-bottom: 1px solid black;
+	margin: -10px -10px 10px -10px;
+}

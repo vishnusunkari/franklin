@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!-- import resource="spring-security.xml" / -->
+    
+    <!-- 
+    <bean id="dataSourcePMP" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	   	<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	   	<property name="url" value="${jdbc.pmp.url}"/>
+	   	<property name="username" value="${jdbc.pmp.username}"/>
+	   	<property name="password" value="${jdbc.pmp.password}"/>
+	</bean> 
+	-->
+	
+	<!-- 
+	<bean id="dataSourcePASSWORDRESET" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	   	<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	   	<property name="url" value="${jdbc.passwordreset.url}"/>
+	   	<property name="username" value="${jdbc.passwordreset.username}"/>
+	   	<property name="password" value="${jdbc.passwordreset.password}"/>
+	</bean> 
+	-->
+	
+	<bean id="dataSourcePMP" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName" value="java:comp/env/jdbc/pmp"/>
+  	</bean>
+	
+	<bean id="dataSourcePASSWORDRESET" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName" value="java:comp/env/jdbc/password_reset"/>
+  	</bean>	
+	
+    <!-- 
+    <bean id="propertyConfigurer"
+   		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>	 
+	</bean> 
+	-->
+
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactoryPMP" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    	<!-- 
+    	<property name="dataSource">
+    		<ref local="dataSourceProd"/>
+    	</property>
+    	-->
+        <property name="dataSource">
+        	<ref local="dataSourcePMP"/>
+        </property>        
+        <property name="mappingResources">
+            <list>
+                <value>edu/franklin/eac/model/pmp/Employee.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/OrgChart.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/Department.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/Location.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/Building.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/Position.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/Phonenumbers.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/Room.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/OrgChartTemp.hbm.xml</value>
+                <value>edu/franklin/eac/model/pmp/PasswordResetTemp.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+        <props>
+            <!-- SQL dialect -->
+            <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+         	
+         	<!-- DO NOT Use C3P0 Connection Pooling as it is 
+         	     configured in context.xml -->
+         	<!-- 
+  			<prop key="hibernate.c3p0.min_size">2</prop>
+  			<prop key="hibernate.c3p0.max_size">10</prop>
+			<prop key="hibernate.c3p0.timeout">1800</prop>
+			<prop key="hibernate.c3p0.acquire_increment">1</prop>
+			<prop key="hibernate.c3p0.idle_test_period">100</prop>
+			<prop key="hibernate.c3p0.max_statements">15</prop>
+			 -->
+			<!-- For debugging print sql statments   -->
+			<prop key="hibernate.format_sql">true</prop>
+			<prop key="hibernate.show_sql">false</prop>
+			  
+			<!-- property name="hibernate.hbm2ddl.auto">update</property -->
+			<!-- prop key="hibernate.hbm2ddl.auto">create</prop -->
+			  
+			<!-- Cache properties -->
+			<prop key="hibernate.max_fetch_depth">20</prop>
+			<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+			<prop key="hibernate.cache.use_minimal_puts">true</prop>
+			<prop key="hibernate.cache.use_query_cache">false</prop>
+			<prop key="hibernate.cache.use_second_level_cache">false</prop>
+			<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+        </props>
+        </property>
+    </bean>    
+
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManagerPMP" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory"><ref local="sessionFactoryPMP"/></property>
+    </bean>
+    
+    <bean id="employeeDAO" class="edu.franklin.eac.dao.hibernate.EmployeeDAOHibernate">
+        <property name="sessionFactory"><ref local="sessionFactoryPMP"/></property>
+    </bean>  
+
+    <bean id="employeeManagerTarget" class="edu.franklin.eac.service.impl.EmployeeManagerImpl">
+        <property name="employeeDAO"><ref local="employeeDAO"/></property>
+        <property name="orgChartDAO"><ref local="orgChartDAO"/></property>
+    </bean>
+
+    <bean id="employeeManager" 
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref local="transactionManagerPMP"/></property>
+        <property name="target"><ref local="employeeManagerTarget"/></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+                <prop key="update*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="orgChartDAO" class="edu.franklin.eac.dao.hibernate.OrgChartDAOHibernate">
+        <property name="sessionFactory"><ref local="sessionFactoryPMP"/></property>
+    </bean> 
+
+    <bean id="orgChartManagerTarget" class="edu.franklin.eac.service.impl.OrgChartManagerImpl">        
+        <property name="orgChartDAO"><ref local="orgChartDAO"/></property>
+    </bean>
+    
+    <bean id="orgChartManager" 
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref local="transactionManagerPMP"/></property>
+        <property name="target"><ref local="orgChartManagerTarget"/></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean>  
+
+    <bean id="sessionFactoryPASSWORDRESET" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    	<!-- property name="dataSource">
+    		<ref local="dataSourceProd"/>
+    	</property -->
+        <property name="dataSource">
+        	<ref local="dataSourcePASSWORDRESET"/>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>edu/franklin/eac/model/passwordreset/Questions.hbm.xml</value>                
+            </list>
+        </property>
+        <property name="hibernateProperties">
+        <props>
+            <!-- SQL dialect -->
+            <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+         	
+         	<!-- DO NOT Use C3P0 Connection Pooling as it is 
+         	     configured in context.xml -->
+         	<!-- 
+  			<prop key="hibernate.c3p0.min_size">2</prop>
+  			<prop key="hibernate.c3p0.max_size">10</prop>
+			<prop key="hibernate.c3p0.timeout">1800</prop>
+			<prop key="hibernate.c3p0.acquire_increment">1</prop>
+			<prop key="hibernate.c3p0.idle_test_period">100</prop>
+			<prop key="hibernate.c3p0.max_statements">15</prop>
+			 -->
+			<!-- For debugging print sql statments   -->
+			<prop key="hibernate.format_sql">true</prop>
+			<prop key="hibernate.show_sql">false</prop>
+			  
+			<!-- property name="hibernate.hbm2ddl.auto">update</property -->
+			<!-- prop key="hibernate.hbm2ddl.auto">create</prop -->
+			  
+			<!-- Cache properties -->
+			<prop key="hibernate.max_fetch_depth">20</prop>
+			<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+			<prop key="hibernate.cache.use_minimal_puts">true</prop>
+			<prop key="hibernate.cache.use_query_cache">false</prop>
+			<prop key="hibernate.cache.use_second_level_cache">false</prop>
+			<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+        </props>
+        </property>
+    </bean>    
+    
+    <bean id="passwordResetDAO" class="edu.franklin.eac.dao.hibernate.PasswordResetDAOHibernate">
+        <property name="sessionFactory"><ref local="sessionFactoryPASSWORDRESET"/></property>
+    </bean>     
+    
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManagerPASSWORDRESET" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory"><ref local="sessionFactoryPASSWORDRESET"/></property>
+    </bean>
+    
+    <bean id="passwordResetManagerTarget" class="edu.franklin.eac.service.impl.PasswordResetManagerImpl">     
+   		<property name="passwordResetDAO"><ref local="passwordResetDAO"/></property> 
+    </bean>
+    
+    <bean id="passwordResetManager" 
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref local="transactionManagerPASSWORDRESET"/></property>
+        <property name="target"><ref local="passwordResetManagerTarget"/></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean>      
+    
+      
+    <!-- bean id="productDAO" class="edu.franklin.mac.dao.hibernate.ProductDAOHibernate">
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean>  
+    
+    <bean id="productManagerTarget" class="edu.franklin.mac.service.impl.ProductManagerImpl">
+        <property name="productDAO"><ref local="productDAO"/></property>
+    </bean>
+    
+    <bean id="productManager" 
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref local="transactionManagerPMP"/></property>
+        <property name="target"><ref local="productManagerTarget"/></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean --> 
+        
+</beans>

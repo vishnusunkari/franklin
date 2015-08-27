@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2007 11:06:59 AM by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping default-access="field">
+    <class name="edu.franklin.eac.model.pmp.Phonenumbers" table="PhoneNumbers">
+        <comment></comment>
+        <id name="phoneId" type="int">
+            <column name="phone_id" />
+            <generator class="native" />
+        </id>
+        <timestamp name="auditStamp" column="audit_stamp"/>
+        <many-to-one name="employee" class="edu.franklin.eac.model.pmp.Employee">
+            <column name="employee_id" not-null="false">
+               
+            </column>
+        </many-to-one>
+        <many-to-one name="department" class="edu.franklin.eac.model.pmp.Department">
+            <column name="department_id" not-null="false">
+               
+            </column>
+        </many-to-one>
+        <property name="extension" type="string">
+            <column name="extension" length="4" not-null="true">
+               
+            </column>
+        </property>
+        <property name="faxFlag" type="boolean">
+            <column name="fax_flag" not-null="true">
+               
+            </column>
+        </property>
+        <property name="exchange" type="string">
+            <column name="exchange" length="7" not-null="false">
+                
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

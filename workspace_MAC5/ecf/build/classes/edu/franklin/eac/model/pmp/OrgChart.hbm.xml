@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="edu.franklin.eac.model.pmp.OrgChart" table="OrgChart" lazy="false">
+        <id name="orgChartId" type="integer">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <timestamp name="auditStamp" column="audit_stamp"/>
+
+		<property name="supervisorId" column="supervisor_id" update="false" insert="false"/>
+		<property name="employeeId" column="employee_id" update="false" insert="false"/>
+		
+        <many-to-one name="position" class="edu.franklin.eac.model.pmp.Position" cascade="none" lazy="false">
+           <column name="position_id"/>
+        </many-to-one>
+        
+        <many-to-one name="supervisor" class="edu.franklin.eac.model.pmp.Employee" cascade="none" lazy="false">
+           <column name="supervisor_id"/>
+        </many-to-one>
+        
+        <many-to-one name="department" class="edu.franklin.eac.model.pmp.Department" cascade="none" lazy="false">
+           <column name="department_id"/>
+        </many-to-one>
+        
+        <many-to-one name="employee" class="edu.franklin.eac.model.pmp.Employee" cascade="none" lazy="false">
+           <column name="employee_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
