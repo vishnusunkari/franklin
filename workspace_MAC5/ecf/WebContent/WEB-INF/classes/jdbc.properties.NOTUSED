@@ -1,0 +1,31 @@
+jdbc.driverClassName=com.mysql.jdbc.Driver
+
+#MySQL5 Production Instance for PMP
+#jdbc.url=jdbc\:mysql\://qwprlx58.courses.qw.franklin.edu\:3306/pmp
+#jdbc.username=pmp
+#jdbc.password=neS9Natrke
+
+#MySQL5 Production Instance for PASSWORDRESET
+#jdbc.url=jdbc\:mysql\://qwprlx58.courses.qw.franklin.edu\:3306/password_reset
+#jdbc.username=passwordreset
+#jdbc.password=G07v17GdGO5h1T
+
+#MySQL3 Production Instance for PMP
+#jdbc.url=jdbc\:mysql\://c2kdb.courses.qw.franklin.edu/pmp
+#jdbc.username=pmpApp
+#jdbc.password=pmp4me
+
+#Development Instance for PMP
+jdbc.pmp.url=jdbc\:mysql\://ostaffqa.dev.mc.franklin.edu\:3306/pmp
+jdbc.pmp.username=sunkariv
+jdbc.pmp.password=franklin
+
+#MySQL5 QA Instance for PMP
+#jdbc.url=jdbc\:mysql\://mcdvlx25.dev.mc.franklin.edu\:3306/pmp
+#jdbc.username=pmp
+#jdbc.password=Q5hJ33Qq
+
+#Development Instance for PASSWORDRESET
+jdbc.passwordreset.url=jdbc\:mysql\://mcdvlx25.dev.mc.franklin.edu\:3306/password_reset
+jdbc.passwordreset.username=password_reset
+jdbc.passwordreset.password=B5vM7sc64DWA

@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-	<bean id="contextSource"
-		class="org.springframework.ldap.core.support.LdapContextSource">
-		
-		<!--  Production Instance -->
-		<!--
-		<property name="url" value="ldap://ldap-master.admin.qw.franklin.edu:389/dc=franklin,dc=edu" />
-		<property name="userDn" value="cn=moveaddchange,ou=Proxies,dc=franklin,dc=edu" />
-		<property name="password" value="moveaddchange" />
-		-->
-		<!--  Development Instance -->
-		 
-			<property name="url" value="ldap://ldap-devel.dev.mc.franklin.edu:389/dc=franklin,dc=edu" />
-			<property name="userDn" value="cn=moveaddchange,ou=Proxies,dc=franklin,dc=edu" />
-			<property name="password" value="moveaddchange" />
-		 
+	<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+
+		<!-- Production Instance -->
+		<!-- <property name=url value="ldap://ldap.xxxx.xx.xxxx.xxx:389/dc=xx,dc=xxx" 
+			/> <property name="userDn" value="cn=asdf,ou=asdf,dc=asdf,dc=asdf" /> <property 
+			name="password" value="asdf" /> -->
+		<!-- Development Instance -->
+
+		<property name=url value="ldap://ldap.xxxx.xx.xxxx.xxx:389/dc=xx,dc=xxx" />
+		<property name="userDn" value="cn=asdf,ou=asdf,dc=asdf,dc=asdf" />
+		<property name="password" value="asdf" />
+
 	</bean>
 	<bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
 		<constructor-arg ref="contextSource" />

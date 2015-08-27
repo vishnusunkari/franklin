@@ -1,0 +1,55 @@
+stage = QA
+
+#URLs embedded in the code
+macHostAddress = http://mcqalx12.qa.mc.franklin.edu:8080
+ldapCGI = http://ldap-devel.dev.mc.franklin.edu/cgi-bin/ssoapi.cgi?
+
+#Email Properties
+mail.smtp.host = mcadlx01.servers.mc.franklin.edu
+email.ldapaccount.from = TINS <sunkariv@franklin.edu>
+email.from = Human Resources <sunkariv@franklin.edu> 
+emailForEveryNumberOfDays = 3
+franklin.email.tail = @franklin.edu
+
+#email.helpdesk = schreibs@franklin.edu, sunkariv@franklin.edu
+#email.nameplate = schreibs@franklin.edu, sunkariv@franklin.edu
+#email.security = schreibs@franklin.edu, sunkariv@franklin.edu
+
+email.macnewhire = sunkariv@franklin.edu; macnewhire<sunkariv@franklin.edu>
+email.term = sunkariv@franklin.edu; macterm<sunkariv@franklin.edu>
+email.ldapfail = sunkariv@franklin.edu; macldapfail<sunkariv@franklin.edu>
+email.nameplate = sunkariv@franklin.edu; macnameplate<sunkariv@franklin.edu>
+email.security = sunkariv@franklin.edu; macsecurity<sunkariv@franklin.edu>
+
+#Email subject tags
+email.helpdesk.ldapaccount.queue = Request for LDAP Account Creation
+email.helpdesk.general.queue = MAC/General-
+email.helpdesk.newhire.queue = MAC/New Hire-
+email.helpdesk.facilities.queue = MAC/Facilities-
+email.helpdesk.windows.queue = MAC/Windows-
+email.helpdesk.linux.queue = MAC/Linux-
+email.helpdesk.uis.queue = MAC/Datatel-
+email.helpdesk.phone.queue = MAC/Phone-
+email.helpdesk.terminate.queue = MAC/New Hire (term)-
+email.nameplate.queue = MAC/Nameplates-
+email.security.queue  = MAC/Security-
+
+#File paths
+local.js.ecf.filepath = /var/lib/tomcat5/webapps/ecf/ecf/js/autocomplete/local.js
+local.js.mac.filepath = /var/lib/tomcat5/webapps/ecf/mac/js/autocomplete/local.js
+local.js.delayedldap.filepath = /var/lib/tomcat5/webapps/ecf/delayedldap/js/autocomplete/local.js
+log.email.location = /var/log/tomcat5/ecf/mail/
+
+#ldapCGI for production
+#ldapCGI = https://oldemail.franklin.edu/cgi-bin/ssoapi.cgi?
+#macHostAddress = http://localhost:8080
+
+#email.helpdesk = helpdesk@franklin.edu
+#email.nameplate = kindellc@franklin.edu
+#email.security = winegart@franklin.edu
+
+#local.js.ecf.filepath = C:/Documents and Settings/sunkariv/workspace_MAC2/ecf/WebContent/ecf/js/autocomplete/local.js
+#local.js.mac.filepath = C:/Documents and Settings/sunkariv/workspace_MAC2/ecf/WebContent/mac/js/autocomplete/local.js
+#local.js.delayedldap.filepath = C:/Documents and Settings/sunkariv/workspace_MAC2/ecf/WebContent/delayedldap/js/autocomplete/local.js
+
+#log.email.location = C:/Documents and Settings/sunkariv/workspace_MAC2/ecf/logs/mail/
